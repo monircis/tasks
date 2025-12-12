@@ -23,6 +23,7 @@
         "@vitejs/plugin-vue": "^6.0.2",
         "bootstrap": "^5.3.8",
         "shadcn-vue": "^2.4.3",
-        "vue": "^3.5.25"
+        "vue": "^3.5.25",
+        "vue-router": "^4.6.4"
     }
 }

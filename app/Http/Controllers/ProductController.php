@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StoreProductRequest;
 use App\Traits\HasImageUpload;
 use App\Http\Requests\UpdateProductRequest;
+use Illuminate\Http\JsonResponse;
 class ProductController extends Controller
 {
     use HasImageUpload;
@@ -65,20 +66,27 @@ class ProductController extends Controller
     }
 
     // Update product
-    public function update(UpdateProductRequest $request, Product $product)
-    {
+    public function update(UpdateProductRequest $request, Product $product): JsonResponse
+{
+    $data = $request->validated();
 
-        $data = $request->validated();
-        if ($request->hasFile('image')) {
-            $this->deleteImage($product->image);
-            $data['image'] = $this->uploadImage($request->file('image'));
-        }
-     
-        $product->update($data);
-        // ✅ Keep this, Inertia will handle redirect
-        return redirect()->route('products.index')->with('success', 'Product updated successfully.');
+    // Handle image upload
+    if ($request->hasFile('image')) {
+        $this->deleteImage($product->image);
+        $data['image'] = $this->uploadImage($request->file('image'));
     }
 
+    // Update the product
+    $product->update($data);
+
+    // Return JSON success response
+    return response()->json([
+        'success' => true,
+        'message' => 'Product updated successfully',
+     ]);
+}
+
+    //  return redirect()->route('products.index')->with('success', 'Product updated successfully.');
     // Delete product
     public function destroy(Product $product)
     {

@@ -41,7 +41,8 @@
             <td>{{ product.sku }}</td>
             <td>{{ product.price }}</td>
             <td>{{ product.stock_quantity }}</td>
-            <td> <img v-if="product.image" :src="`http://127.0.0.1:8000/storage/${product.image}`" class="img-thumbnail" width="150" />
+            <td> 
+              <img v-if="product.image" :src="`http://127.0.0.1:8000/storage/${product.image}`" class="img-thumbnail" width="150" />
               </td>
             <td>{{ product.description }}</td>
             <td class="text-center">
