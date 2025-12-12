@@ -6,7 +6,10 @@
     <div class="d-flex justify-content-center mb-4">
       <Link href="/products/create" class="btn btn-primary">Add Product</Link>
     </div>
-
+ <!-- Flash message -->
+    <div v-if="$page.props.flash.success" class="alert alert-success">
+      {{ $page.props.flash.success }}
+    </div>
     <!-- Filter Form -->
     <form @submit.prevent="applyFilter" class="row g-3 mb-4 justify-content-center">
       <div class="col-auto">
@@ -76,6 +79,7 @@
 
 <script setup>
 import { router, Link } from '@inertiajs/vue3'
+import { ref, onMounted } from 'vue'
 import { reactive } from 'vue'
 
 const props = defineProps({
